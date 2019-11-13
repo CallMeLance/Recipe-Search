@@ -10,9 +10,7 @@ class RecipeSearcher extends Component {
         this.state = { recipes: [] }
     }
 
-    componentDidMount() {
-        this.getRecipeByName('Beef');
-    }
+    //  
 
     getRandomRecipe = () => {
 
@@ -24,7 +22,7 @@ class RecipeSearcher extends Component {
             url: 'https://www.themealdb.com/api/json//v1/1/random.php'
         })
         .then(function(response) {
-            console.log(response);
+            _this.setState({ recipes: response.data.meals || [] });
         })
         .catch(function(error) {
             console.log(error);
@@ -64,7 +62,7 @@ class RecipeSearcher extends Component {
             }
         })
         .then(function(response) {
-            console.log(response);
+            _this.setState({ recipes: response.data.meals || [] });
         })
         .catch(function(error) {
             console.log(error);
@@ -72,14 +70,15 @@ class RecipeSearcher extends Component {
     }
 
     render() {
-        
-        this.getRecipesByLetter('L');
 
         return (
             <div>
-                <Header />
+                <Header 
+                randomRecipeHandler={this.getRandomRecipe}
+                recipeByLetterHandler={this.getRecipesByLetter} 
+                recipeByNameHandler={this.getRecipeByName}
+                />
                 <RecipeList recipes={this.state.recipes} />
-    
             </div>
         );
     }
