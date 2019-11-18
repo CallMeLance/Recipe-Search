@@ -8,6 +8,7 @@ class RecipeSearcher extends Component {
     constructor(props) {
         super(props);
         this.state = { recipes: [] }
+        this.state = { firstLoad: true}
     }
 
     //  
@@ -23,6 +24,7 @@ class RecipeSearcher extends Component {
         })
         .then(function(response) {
             _this.setState({ recipes: response.data.meals || [] });
+            _this.setState({ firstLoad: false})
         })
         .catch(function(error) {
             console.log(error);
@@ -42,6 +44,7 @@ class RecipeSearcher extends Component {
         })
         .then(function(response) {
             _this.setState({ recipes: response.data.meals || [] });
+            _this.setState({ firstLoad: false})
         })
         .catch(function(error) {
             console.log(error); 
@@ -63,6 +66,7 @@ class RecipeSearcher extends Component {
         })
         .then(function(response) {
             _this.setState({ recipes: response.data.meals || [] });
+            _this.setState({ firstLoad: false})
         })
         .catch(function(error) {
             console.log(error);
@@ -78,7 +82,7 @@ class RecipeSearcher extends Component {
                 recipeByLetterHandler={this.getRecipesByLetter} 
                 recipeByNameHandler={this.getRecipeByName}
                 />
-                <RecipeList recipes={this.state.recipes} />
+                <RecipeList recipes={this.state.recipes} firstLoad={this.state.firstLoad} />
             </div>
         );
     }
